@@ -14,5 +14,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
+# dotenv environment variables file
 .env*.local
+.env.test
