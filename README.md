@@ -1,6 +1,6 @@
 ﻿# Dogs Service API
 
-This is a RESTful API for managing dogs in the Dogs Service.
+This is a RESTful API for managing dogs of a database.
 
 ## Prerequisites
 
