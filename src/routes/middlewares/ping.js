@@ -1,10 +1,10 @@
 const { Router } = require("express");
 const router = Router();
 
-router.get("/", (req, res) => {
+router.get("/", (_req, res) => {
 	try {
 		const message = "Dogshouseservice.Version1.0.1";
-		res.status(200).json(message);
+		res.status(200).send(message);
 	} catch (error) {
 		res.status(404).json({ error: error.message });
 	}
