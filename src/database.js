@@ -1,12 +1,18 @@
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
+// const { DB_USER, DB_PASSWORD, DB_SERVER, DB_NAME, DB_PORT } = process.env;
 
-// New instance of sequelize
-const sequelize = new Sequelize("database", "username", "password", {
+// const sequelize = new Sequelize(`mssql://${DB_USER}:${DB_PASSWORD}@${DB_SERVER}:${DB_PORT}/${DB_NAME}`, {
+const sequelize = new Sequelize(`mssql://max:msi@MSI:1433/dogs`, {
 	host: "localhost",
 	dialect: "mssql",
+	logging: false,
 });
+
+const basename = path.basename(__filename);
+
+const modelDefiners = [];
 
 // Read files from ./models, to push them in modelDefiners array
 fs.readdirSync(path.join(__dirname, "/models"))
@@ -18,12 +24,10 @@ fs.readdirSync(path.join(__dirname, "/models"))
 
 // Connect models to sequelize
 modelDefiners.forEach((model) => model(sequelize));
-// Capitalize model name ie: product => Product
+// Capitalize model name: product => Product
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
-
-const { Dog } = sequelize.models;
 
 module.exports = {
 	...sequelize.models, // exports models: const { Product, User } = require('./db.js');
