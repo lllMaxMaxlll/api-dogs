@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const router = Router();
+const { createDog } = require("../controllers/createDog");
 
 router.post("/", async (req, res) => {
 	const { name, color, tail_length, weight } = req.body;
