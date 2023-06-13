@@ -72,7 +72,7 @@ Endpoint: `GET /dogs`
 
 ### Create Dog
 
-Endpoint: `POST /dogs`
+Endpoint: `POST /dog`
 
 - Description: Create a new dog.
 - Request body: JSON object with the following properties:
