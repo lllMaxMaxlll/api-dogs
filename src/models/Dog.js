@@ -8,14 +8,24 @@ module.exports = (sequelize) => {
 				type: DataTypes.INTEGER,
 				autoIncrement: true,
 				primaryKey: true,
+				get() {
+					return this.getDataValue("id");
+				},
 			},
 			name: {
 				type: DataTypes.STRING,
 				allowNull: false,
+				get() {
+					return this.getDataValue("name");
+				},
 			},
 			color: {
 				type: DataTypes.STRING,
 				allowNull: false,
+				get() {
+					const rawColor = this.getDataValue("color");
+					return rawColor.replaceAll(" ", "");
+				},
 			},
 			tail_length: {
 				type: DataTypes.INTEGER,
@@ -24,6 +34,9 @@ module.exports = (sequelize) => {
 					isInt: true,
 					min: 0,
 				},
+				get() {
+					return this.getDataValue("tail_length");
+				},
 			},
 			weight: {
 				type: DataTypes.INTEGER,
@@ -31,6 +44,9 @@ module.exports = (sequelize) => {
 				validate: {
 					isInt: true,
 					min: 0,
+				},
+				get() {
+					return this.getDataValue("weight");
 				},
 			},
 		},
