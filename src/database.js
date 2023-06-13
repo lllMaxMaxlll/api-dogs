@@ -1,10 +1,10 @@
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-// const { DB_USER, DB_PASSWORD, DB_SERVER, DB_NAME, DB_PORT } = process.env;
+require("dotenv").config();
+const { DB_USER, DB_PASSWORD, DB_SERVER, DB_NAME, DB_PORT } = process.env;
 
-// const sequelize = new Sequelize(`mssql://${DB_USER}:${DB_PASSWORD}@${DB_SERVER}:${DB_PORT}/${DB_NAME}`, {
-const sequelize = new Sequelize(`mssql://max:msi@MSI:1433/dogs`, {
+const sequelize = new Sequelize(`mssql://${DB_USER}:${DB_PASSWORD}@${DB_SERVER}:${DB_PORT}/${DB_NAME}`, {
 	host: "localhost",
 	dialect: "mssql",
 	logging: false,
@@ -27,9 +27,10 @@ modelDefiners.forEach((model) => model(sequelize));
 // Capitalize model name: product => Product
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
+
 sequelize.models = Object.fromEntries(capsEntries);
 
 module.exports = {
 	...sequelize.models, // exports models: const { Product, User } = require('./db.js');
-	conn: sequelize, // exports conection { conn } = require('./db.js');
+	sequelize,
 };
